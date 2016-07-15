@@ -373,7 +373,7 @@ alexa.app = function(name, endpoint) {
   this.express = function(express, path, enableDebug) {
     var endpoint = (path || "/") + (self.endpoint || self.name);
     express.post(endpoint, function(req, res) {
-      self.request(req.body).then(function(response) {
+      self.request(req.body, req.params).then(function(response) {
         res.json(response);
       }, function() {
         res.status(500).send("Server Error");
