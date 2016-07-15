@@ -127,7 +127,8 @@ alexa.response = function() {
 
 };
 
-alexa.request = function(json) {
+alexa.request = function(json, params) {
+  this.params = params;
   this.data = json;
   this.slot = function(slotName, defaultValue) {
     try {
@@ -222,9 +223,9 @@ alexa.app = function(name, endpoint) {
   this.sessionEnded = function(func) {
     self.sessionEndedFunc = func;
   };
-  this.request = function(request_json) {
+  this.request = function(request_json, request_params) {
     return new Promise(function(resolve, reject) {
-      var request = new alexa.request(request_json);
+      var request = new alexa.request(request_json, request_params);
       var response = new alexa.response();
       var postExecuted = false;
       // Attach Promise resolve/reject functions to the response object
